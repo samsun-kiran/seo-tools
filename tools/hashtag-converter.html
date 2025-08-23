@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hashtag Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+      resize: vertical;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #convertBtn { background-color: #4CAF50; color: white; }
+    #convertBtn:hover { background-color: #45a049; }
+
+    #lowercaseBtn { background-color: #008CBA; color: white; }
+    #lowercaseBtn:hover { background-color: #0077a3; }
+
+    #uppercaseBtn { background-color: #34495e; color: white; }
+    #uppercaseBtn:hover { background-color: #2c3e50; }
+
+    #removeNewLinesBtn { background-color: #9b59b6; color: white; }
+    #removeNewLinesBtn:hover { background-color: #8e44ad; }
+
+    #addNewLinesBtn { background-color: #27ae60; color: white; }
+    #addNewLinesBtn:hover { background-color: #1e8449; }
+
+    #commaSpacerBtn { background-color: #d35400; color: white; }
+    #commaSpacerBtn:hover { background-color: #b84300; }
+
+    #copyBtn { background-color: #f39c12; color: white; }
+    #copyBtn:hover { background-color: #e69500; }
+
+    #resetBtn { background-color: #e74c3c; color: white; }
+    #resetBtn:hover { background-color: #c0392b; }
+
+    #resetOutputBtn { background-color: #95a5a6; color: white; }
+    #resetOutputBtn:hover { background-color: #7f8c8d; }
+
+    #removeDuplicateBtn { background-color: #16a085; color: white; }
+    #removeDuplicateBtn:hover { background-color: #12876f; }
+  </style>
+</head>
+<body>
+
+  <h2>Hashtag Converter</h2>
+
+  <label for="inputText">Enter your text:</label>
+  <textarea id="inputText" placeholder="e.g. SK Chicken, chicken shop, poultry products, ..."></textarea>
+
+  <button id="convertBtn" onclick="convertHashtags()">Convert</button>
+  <button id="lowercaseBtn" onclick="applyLowercase()">To LowerCase</button>
+  <button id="uppercaseBtn" onclick="applyUppercase()">To UpperCase</button>
+  <button id="removeNewLinesBtn" onclick="removeNewLines()">Remove New Lines</button>
+  <button id="addNewLinesBtn" onclick="addNewLinesByComma()">Add New Lines by Comma</button>
+  <button id="commaSpacerBtn" onclick="replaceSpacesWithComma()">Space ➜ ,</button>
+  <button id="removeDuplicateBtn" onclick="removeDuplicateRows()">Remove Duplicate Rows</button>
+  <button id="copyBtn" onclick="copyOutput()">Copy Output</button>
+  <button id="resetBtn" onclick="resetFields()">Reset All</button>
+  <button id="resetOutputBtn" onclick="resetOutputOnly()">Reset Output Only</button>
+
+  <label for="outputText">Output:</label>
+  <textarea id="outputText" readonly></textarea>
+
+  <script>
+    function getCurrentText() {
+      const outputText = document.getElementById("outputText").value.trim();
+      return outputText.length > 0 ? outputText : document.getElementById("inputText").value.trim();
+    }
+
+    function convertHashtags() {
+      const input = getCurrentText();
+      const seen = new Set();
+
+      const output = input
+        .split(",")
+        .map(item => item.trim())
+        .filter(item => item.length > 0)
+        .map(item => {
+          return '#' + item
+            .toLowerCase()
+            .split(" ")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join("");
+        })
+        .filter(tag => {
+          if (seen.has(tag)) return false;
+          seen.add(tag);
+          return true;
+        })
+        .join(" ");
+
+      document.getElementById("outputText").value = output;
+    }
+
+    function applyLowercase() {
+      const text = getCurrentText();
+      document.getElementById("outputText").value = text.toLowerCase();
+    }
+
+    function applyUppercase() {
+      const text = getCurrentText();
+      document.getElementById("outputText").value = text.toUpperCase();
+    }
+
+    function removeNewLines() {
+      const text = getCurrentText();
+      document.getElementById("outputText").value = text.replace(/\n/g, " ");
+    }
+
+    function addNewLinesByComma() {
+      const text = getCurrentText();
+      const lines = text.split(",").map(item => item.trim()).filter(item => item.length > 0);
+      document.getElementById("outputText").value = lines.join("\n");
+    }
+
+    function replaceSpacesWithComma() {
+      const text = getCurrentText();
+      const replaced = text.split(" ").filter(w => w).join(", ");
+      document.getElementById("outputText").value = replaced;
+    }
+
+    function removeDuplicateRows() {
+      const text = getCurrentText();
+      const lines = text.split("\n").map(line => line.trim());
+      const uniqueLines = [...new Set(lines)];
+      document.getElementById("outputText").value = uniqueLines.join("\n");
+    }
+
+    function copyOutput() {
+      const outputText = document.getElementById("outputText");
+      const copyBtn = document.getElementById("copyBtn");
+
+      outputText.select();
+      outputText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+
+      copyBtn.innerText = "Copied ✅";
+      setTimeout(() => {
+        copyBtn.innerText = "Copy Output";
+      }, 2000);
+    }
+
+    function resetFields() {
+      document.getElementById("inputText").value = "";
+      document.getElementById("outputText").value = "";
+      document.getElementById("copyBtn").innerText = "Copy Output";
+    }
+
+    function resetOutputOnly() {
+      document.getElementById("outputText").value = "";
+      document.getElementById("copyBtn").innerText = "Copy Output";
+    }
+  </script>
+
+</body>
+</html>

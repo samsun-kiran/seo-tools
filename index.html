@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO - a2zet</title>
+</head>
+<body>
+    <style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f7f7f7;
+  }
+
+  h2 {
+    color: #333;
+    margin-top: 40px;
+  }
+
+  .btn-link {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 5px;
+    background-color: #4285f4;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+
+  .btn-link:hover {
+    background-color: #3367d6;
+  }
+
+  textarea {
+    width: 100%;
+    height: 180px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+</style>
+
+<h1>A to Z SEO Tools</h1>
+<hr>
+
+<h2>Useful Tools</h2>
+<div id="linkContainer2"></div>
+<textarea id="urlList2" readonly onclick="this.select()"></textarea>
+
+<h2>Useful Chrome Extensions</h2>
+<div id="linkContainer"></div>
+<textarea id="urlList" readonly onclick="this.select()"></textarea>
+
+
+<script>
+  // ✅ First group of tools
+  const group1 = [
+    //{ name: "", url: "" },
+    { name: "Open Multiple URLs", url: "https://chromewebstore.google.com/detail/oifijhaokejakekmnjmphonojcfkpbbh?utm_source=item-share-cb" },
+    { name: "SEO META in 1 CLICK", url: "https://chromewebstore.google.com/detail/bjogjfinolnhfhkbipphpdlldadpnmhc?utm_source=item-share-cb" },
+    { name: "DA PA Checker", url: "https://chromewebstore.google.com/detail/bpigbmihkhmpgcchhmknhngcklahkoli?utm_source=item-share-cb" },
+    { name: "Google Search 100 Results", url: "https://chromewebstore.google.com/detail/gdcdklbikolacdinbbdakpkkapianaee?utm_source=item-share-cb" },
+    { name: "SEOquake", url: "https://chromewebstore.google.com/detail/akdgnmcogleenhbclghghlkkdndkjdjc?utm_source=item-share-cb" },
+    { name: "MozBar", url: "https://chromewebstore.google.com/detail/eakacpaijcpapndcfffdgphdiccmpknp?utm_source=item-share-cb" },
+    { name: "Image Downloader", url: "https://chromewebstore.google.com/detail/image-downloader/cnpniohnfphhjihaiiggeabnkjhpaldj" },
+    { name: "Text Blaze", url: "https://chrome.google.com/webstore/detail/text-blaze/idgadaccgipmpannjkmfddolnnhmeklj" },
+  ];
+
+  // ✅ Second group of tools
+  const group2 = [
+    { name: "A to Z SEO Tools", url: "https://seo.a2zet.com" },
+    { name: "#Hashtag Converter", url: "https://seo.a2zet.com/tools/hashtag-converter.html" },
+    { name: "Google Docs", url: "https://docs.google.com/document" },
+    { name: "Google Sheets", url: "https://docs.google.com/spreadsheets" },
+    { name: "WEBP to JPG", url: "https://www.iloveimg.com/convert-to-jpg/webp-to-jpg" },
+    { name: "Canva", url: "https://www.canva.com" },
+    { name: "GPT", url: "https://chatgpt.com" },
+    { name: "Online VS Code", url: "https://vscode.dev" },
+    { name: "Alphabetical Order", url: "https://www.textfixer.com/tools/alphabetical-order.php" },
+    { name: "Plagiarism Checker", url: "https://smallseotools.com/plagiarism-checker" },
+    { name: "Duplichecker", url: "https://www.duplichecker.com" },
+    { name: "GravityWrite Blog Title Generator", url: "https://app.gravitywrite.com/tools/blog-title-generator" },
+    { name: "Google PageSpeed", url: "https://pagespeed.web.dev" },
+    { name: "AI Humanizer - Ahrefs", url: "https://ahrefs.com/writing-tools/ai-humanizer" },
+    { name: "Emoji DB", url: "https://emojidb.org/all-emojis" },
+    { name: "DA PA Checker", url: "https://www.dapachecker.org" },
+    { name: "GTmetrix", url: "https://gtmetrix.com" },
+    { name: "Mobile Friendly Test", url: "https://smallseotools.com/mobile-friendly-test" },
+    { name: "Backlink Checker", url: "https://smallseotools.com/backlink-checker" },
+  ];
+
+  const linkContainer = document.getElementById("linkContainer");
+  const urlList = document.getElementById("urlList");
+
+  const linkContainer2 = document.getElementById("linkContainer2");
+  const urlList2 = document.getElementById("urlList2");
+
+  // Fill Group 1
+  let urls1 = "";
+  group1.forEach(tool => {
+    const a = document.createElement("a");
+    a.href = tool.url;
+    a.rel = "nofollow noopener noreferrer";
+    a.textContent = tool.name;
+    a.className = "btn-link";
+    a.target = "_blank";
+    linkContainer.appendChild(a);
+    urls1 += tool.url + "\n";
+  });
+  urlList.value = urls1.trim();
+
+  // Fill Group 2
+  let urls2 = "";
+  group2.forEach(tool => {
+    const a = document.createElement("a");
+    a.href = tool.url;
+    a.rel = "nofollow noopener noreferrer";
+    a.textContent = tool.name;
+    a.className = "btn-link";
+    a.target = "_blank";
+    linkContainer2.appendChild(a);
+    urls2 += tool.url + "\n";
+  });
+  urlList2.value = urls2.trim();
+</script>
+</body>
+</html>
